@@ -14,10 +14,11 @@ router.get('/', (req, res) => {
 router.post('/register', async (req, res) => {
   //获取用户提交请求参数信息
   const {username, password, type} = req.body;
+  console.log(username, password, type);
+  
   try {
     //去数据库查找当前用户是否存在
     const user = await Users.findOne({username});
-  
     if (user) {
       //用户名被注册了
       res.json({
@@ -27,18 +28,19 @@ router.post('/register', async (req, res) => {
     } else {
       //用户可以注册
       //保存在数据库中
-      const {username, _id, type} = await Users.create({username, password, type});
+      const user = await Users.create({username, password, type});
       //返回成功的响应
       res.json({
         code: 0,
         data: {
-          username,
-          _id,
-          type
+          username: user.username,
+          _id: user.id,
+          type: user.type
         }
       })
     }
   } catch (e) {
+    console.log(e);
     res.json({
       code: 2,
       msg: '网络不稳定，请刷新试试~'
