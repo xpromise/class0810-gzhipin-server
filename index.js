@@ -7,6 +7,14 @@ const app = express();
     npm i nodemon -g
  */
 
+const http = require('http');
+const server = http.createServer(app);
+require('./socketIO/test')(server);
+
+server.listen('5000', () => {
+  console.log('socketio服务器启动成功, 请访问: http://localhost:5000')
+});
+
 (async () => {
   await db;
   app.use(router);
