@@ -11,8 +11,8 @@ const http = require('http');
 const server = http.createServer(app);
 require('./socketIO')(server);
 
-server.listen('5000', () => {
-  console.log('socketio服务器启动成功, 请访问: http://localhost:5000')
+server.listen('5001', () => {
+  console.log('socketio服务器启动成功, 请访问: http://localhost:5001')
 });
 
 (async () => {
